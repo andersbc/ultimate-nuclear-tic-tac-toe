@@ -1,17 +1,21 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <img alt="logo" src="./assets/logo.png" width="300" style="opacity: 0.6" />
+  <HelloWorld msg="The Ultimate Nuclear TIC-TAC-TOE" />
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
+<script setup lang="ts">
+import useEmitter from "@/composables/useEmitter";
+import HelloWorld from "@/components/HelloWorld.vue";
 
-export default defineComponent({
-  name: "App",
-  components: {
-    HelloWorld,
-  },
+const emitter = useEmitter();
+emitter.on("gameStarted", (val: string) => {
+  const body = document.getElementsByTagName("body")[0];
+  body.style.backgroundImage = "none";
+});
+emitter.on("winner", (val: string) => {
+  const body = document.getElementsByTagName("body")[0];
+  body.style.backgroundImage =
+    "url('" + process.env.BASE_URL + "bomb.webp" + "')";
 });
 </script>
 
@@ -23,5 +27,14 @@ export default defineComponent({
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+body {
+  /* background-image: url("~@/assets/bomb.webp"); */
+  /* background-image: v-bind("img"); */
+  /* background-image: url(v-bind("img"));*/
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
 }
 </style>

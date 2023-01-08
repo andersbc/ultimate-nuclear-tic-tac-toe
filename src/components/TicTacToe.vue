@@ -21,7 +21,12 @@
       <h2 v-else class="winner">Game over. It was a draw</h2>
     </div>
     <div class="restart" v-if="gameOver">
-      <button id="restart" @click="startNewGame">restart</button>
+      <button
+        :class="[theWinner ? 'restart-btn' : 'restart-btn-draw']"
+        @click="startNewGame"
+      >
+        restart
+      </button>
     </div>
   </div>
 </template>
@@ -163,7 +168,7 @@ const handleFieldClicked = (row: number, col: number) => {
 .restart {
 }
 
-#restart {
+.restart-btn {
   font-size: 24px;
   color: white;
   font-weight: bold;
@@ -175,7 +180,22 @@ const handleFieldClicked = (row: number, col: number) => {
   /* remove background-opacity */
   cursor: pointer;
 }
-#restart:hover {
+
+.restart-btn-draw {
+  font-size: 24px;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  border-radius: 5%;
+  padding: 8px 30px;
+  border: 4px solid #000000;
+  overflow: hidden;
+  background: transparent; /* Change it to transparent */
+  /* remove background-opacity */
+  cursor: pointer;
+}
+
+#restart-btn:hover,
+.restart-btn-draw:hover {
   background-color: rgba(1, 256, 1, 0.4);
 }
 </style>

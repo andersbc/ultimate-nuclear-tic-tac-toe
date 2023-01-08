@@ -3,7 +3,7 @@
     <div class="grid">
       <!-- for each row in game board -->
       <template v-for="(row, rowIndex) in board" v-bind:key="rowIndex">
-        <!-- for each col in row -->SSSSS
+        <!-- for each col in row -->
         <div
           v-for="(col, colIndex) in row"
           v-bind:key="colIndex"
@@ -165,15 +165,17 @@ const handleFieldClicked = (row: number, col: number) => {
 
 #restart {
   font-size: 24px;
+  color: white;
+  font-weight: bold;
   border-radius: 5%;
   padding: 8px 30px;
-  border: 2px solid #000000;
+  border: 4px solid #ffffff;
   overflow: hidden;
   background: transparent; /* Change it to transparent */
   /* remove background-opacity */
   cursor: pointer;
 }
 #restart:hover {
-  background-color: rgba(256, 1, 1, 0.4);
+  background-color: rgba(1, 256, 1, 0.4);
 }
 </style>

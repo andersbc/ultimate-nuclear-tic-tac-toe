@@ -1,13 +1,14 @@
 <template>
   <div class="tictactoe">
-    <div class="grid">
+    <div class="board">
       <!-- for each row in game board -->
       <template v-for="(row, rowIndex) in board" v-bind:key="rowIndex">
         <!-- for each col in row -->
         <div
           v-for="(col, colIndex) in row"
           v-bind:key="colIndex"
-          class="grid-item"
+          class="board-field"
+          :class="[board[rowIndex][colIndex] ? 'board-field-occupied' : '']"
           @click="handleFieldClicked(rowIndex, colIndex)"
         >
           {{ board[rowIndex][colIndex] }}
@@ -15,9 +16,7 @@
       </template>
     </div>
     <div class="announcement" v-if="gameOver">
-      <h2 v-if="theWinner !== ''" class="winner">
-        Game over. {{ theWinner }} won!
-      </h2>
+      <h2 v-if="theWinner !== ''" class="winner">Boom. {{ theWinner }} won!</h2>
       <h2 v-else class="winner">Game over. It was a draw</h2>
     </div>
     <div class="restart" v-if="gameOver">
@@ -131,24 +130,38 @@ const handleFieldClicked = (row: number, col: number) => {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.grid {
+.board {
   display: inline-grid;
   grid-template-rows: 100px 100px 100px;
   grid-template-columns: 100px 100px 100px;
   grid-gap: 3px;
 }
 
-.grid-item {
+.board-field {
   display: flex;
   justify-content: center;
   align-items: center;
   border: 2px solid black;
   font-size: 3em;
   cursor: pointer;
+  border-radius: 3%;
+  background-color: rgba(0, 0, 0, 0.02);
 }
 
-.grid-item:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+.board-field:hover {
+  background-color: transparent;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.board-field-occupied {
+  background-color: rgba(0, 0, 0, 0.08);
+  cursor: default;
+  box-shadow: none;
+}
+
+.board-field.board-field-occupied:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+  box-shadow: none;
 }
 
 .announcement {
